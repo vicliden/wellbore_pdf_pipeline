@@ -1,0 +1,37 @@
+Wellbore Casing Extraction Pipeline
+
+This project extracts structured casing design data from raw SODIR PDF well documents for Norwegian Continental Shelf wells. It handles text PDFs, scanned PDFs, and incomplete data, producing a standardized output CSV.
+
+Features
+Multi-path PDF ingestion: automatically routes documents based on text layer detection.
+Hybrid extraction: local text parsing + LLM-based extraction for scanned PDFs.
+Conflict resolution: merges data from multiple documents and logs inconsistencies.
+Robust schema enforcement: ensures consistent units, casing types, and depths.
+Single-document mode: easily extract data from a new SODIR PDF live.
+Requirements
+Python 3.10+
+Dependencies: pypdf, httpx, anthropic, python-dotenv
+pip install -r requirements.txt
+Set your Anthropic API key in a .env file:
+ANTHROPIC_API_KEY=your_api_key_here
+Usage
+Process all wellbores from a CSV
+python pipeline_clean.py --csv [PATH TO CSV] --output output/casing_strings.csv
+Extract a single PDF
+python pipeline.py \
+  --pdf-url "https://example.com/document.pdf" \
+  --output output/single_casing.csv \
+  --single-wellbore "7/11-5" \
+  --doc-name "Completion Report"
+Output
+CSV containing standardized casing data:
+
+| wellbore | casing_type | casing_diameter_in | casing_depth_m | hole_diameter_in | hole_depth_m | lot_fit_mud_equiv | formation_test_type | source_documents | conflicts |
+
+Conflicts are logged in a separate field for traceability.
+Notes
+
+High-priority documents are processed first; fallback documents are used only if critical fields are missing.
+
+Text-layer detection reduces unnecessary LLM calls, saving API tokens.
+Handles missing data, scanned PDFs, and large documents through chunking.

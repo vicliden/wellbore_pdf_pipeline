@@ -1,0 +1,4 @@
+.env
+pdfs
+output/casing_strings.csv
+.vscode
