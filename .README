@@ -18,7 +18,7 @@ Usage
 Process all wellbores from a CSV
 python pipeline_clean.py --csv [PATH TO CSV] --output output/casing_strings.csv
 Extract a single PDF
-python pipeline.py \
+python pipeline_clean.py \
   --pdf-url "https://example.com/document.pdf" \
   --output output/single_casing.csv \
   --single-wellbore "7/11-5" \
