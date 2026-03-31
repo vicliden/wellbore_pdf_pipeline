@@ -14,15 +14,20 @@ Dependencies: pypdf, httpx, anthropic, python-dotenv
 pip install -r requirements.txt
 Set your Anthropic API key in a .env file:
 ANTHROPIC_API_KEY=your_api_key_here
+
 Usage
 Process all wellbores from a CSV
 python pipeline_clean.py --csv [PATH TO CSV] --output output/casing_strings.csv
+
+
 Extract a single PDF
 python pipeline_clean.py \
   --pdf-url "https://example.com/document.pdf" \
   --output output/single_casing.csv \
   --single-wellbore "7/11-5" \
   --doc-name "Completion Report"
+
+
 Output
 CSV containing standardized casing data:
 
